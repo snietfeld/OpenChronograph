@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE eagle SYSTEM "eagle.dtd">
+<eagle>
+    <drawing>
+        <grid unitdist="mm" unit="mm"/>
+        <layers>
+            <layer name="Top" color="4" number="1" visible="yes" active="yes" fill="1"/>
+            <layer name="tKeepout" color="0" number="4" visible="yes" active="yes" fill="1"/>
+            <layer name="Bottom" color="4" number="16" visible="yes" active="yes" fill="1"/>
+            <layer name="tPlace" color="7" number="21" visible="yes" active="yes" fill="1"/>
+            <layer name="bPlace" color="7" number="22" visible="yes" active="yes" fill="1"/>
+            <layer name="tNames" color="7" number="25" visible="yes" active="yes" fill="1"/>
+            <layer name="bNames" color="7" number="26" visible="yes" active="yes" fill="1"/>
+            <layer name="tValues" color="7" number="27" visible="yes" active="yes" fill="1"/>
+            <layer name="bValues" color="7" number="28" visible="yes" active="yes" fill="1"/>
+            <layer name="tStop" color="7" number="29" visible="yes" active="yes" fill="1"/>
+            <layer name="bStop" color="7" number="30" visible="yes" active="yes" fill="1"/>
+            <layer name="tCream" color="7" number="31" visible="yes" active="yes" fill="1"/>
+            <layer name="bCream" color="7" number="32" visible="yes" active="yes" fill="1"/>
+            <layer name="bKeepout" color="0" number="40" visible="yes" active="yes" fill="1"/>
+            <layer name="tRestrict" color="4" number="41" visible="yes" active="yes" fill="1"/>
+            <layer name="bRestrict" color="4" number="42" visible="yes" active="yes" fill="1"/>
+            <layer name="tDocu" color="7" number="51" visible="yes" active="yes" fill="1"/>
+            <layer name="bDocu" color="7" number="52" visible="yes" active="yes" fill="1"/>
+            <layer name="Nets" color="2" number="91" visible="yes" active="yes" fill="1"/>
+            <layer name="Busses" color="1" number="92" visible="yes" active="yes" fill="1"/>
+            <layer name="Pins" color="2" number="93" visible="yes" active="yes" fill="1"/>
+            <layer name="Symbols" color="4" number="94" visible="yes" active="yes" fill="1"/>
+            <layer name="Names" color="7" number="95" visible="yes" active="yes" fill="1"/>
+            <layer name="Values" color="7" number="96" visible="yes" active="yes" fill="1"/>
+            <layer name="Info" color="7" number="97" visible="yes" active="yes" fill="1"/>
+            <layer name="Guide" color="6" number="98" visible="yes" active="yes" fill="1"/>
+        </layers>
+        <library name="Upverter Library">
+            <description>Upverter Parts Library
+
+Created by Upverter.com</description>
+            <packages>
+                <package name="MAXIM_DS3231MZ+_0">
+                    <description>PR-RTC-DS3231M-IL8</description>
+                    <wire layer="21" y2="2.5" width="0.15" x2="-1.0" y1="-2.5" x1="-1.0"/>
+                    <wire layer="21" y2="2.5" width="0.15" x2="1.0" y1="-2.5" x1="1.0"/>
+                    <wire layer="21" y2="2.5" width="0.15" x2="1.0" y1="2.5" x1="-1.0"/>
+                    <wire layer="21" y2="-2.5" width="0.15" x2="1.0" y1="-2.5" x1="-1.0"/>
+                    <wire layer="51" y2="2.5" width="0.1" x2="-2.0" y1="-2.5" x1="-2.0"/>
+                    <wire layer="51" y2="2.5" width="0.1" x2="2.0" y1="-2.5" x1="2.0"/>
+                    <wire layer="51" y2="2.5" width="0.1" x2="2.0" y1="2.5" x1="-2.0"/>
+                    <wire layer="51" y2="-2.5" width="0.1" x2="2.0" y1="-2.5" x1="-2.0"/>
+                    <wire layer="41" y2="2.6" width="0.1" x2="-3.4" y1="-2.6" x1="-3.4"/>
+                    <wire layer="41" y2="2.6" width="0.1" x2="3.4" y1="2.6" x1="-3.4"/>
+                    <wire layer="41" y2="-2.6" width="0.1" x2="3.4" y1="2.6" x1="3.4"/>
+                    <wire layer="41" y2="-2.6" width="0.1" x2="-3.4" y1="-2.6" x1="3.4"/>
+                    <text layer="25" align="bottom-left" y="2.88" x="-4.4" rot="R0" size="1.0">&gt;NAME</text>
+                    <circle y="2.755" x="-2.35" layer="21" radius="0.125" width="0.25"/>
+                    <circle y="1.7" x="-0.2" layer="21" radius="0.2" width="0.4"/>
+                    <circle y="1.6" x="-1.1" layer="51" radius="0.5" width="0.1"/>
+                    <smd layer="1" thermals="yes" name="1" stop="yes" roundness="100" dx="0.6" dy="1.9" y="1.905" x="-2.35" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="2" stop="yes" roundness="100" dx="0.6" dy="1.9" y="0.635" x="-2.35" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="3" stop="yes" roundness="100" dx="0.6" dy="1.9" y="-0.635" x="-2.35" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="4" stop="yes" roundness="100" dx="0.6" dy="1.9" y="-1.905" x="-2.35" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="8" stop="yes" roundness="100" dx="0.6" dy="1.9" y="1.905" x="2.35" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="7" stop="yes" roundness="100" dx="0.6" dy="1.9" y="0.635" x="2.35" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="6" stop="yes" roundness="100" dx="0.6" dy="1.9" y="-0.635" x="2.35" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="5" stop="yes" roundness="100" dx="0.6" dy="1.9" y="-1.905" x="2.35" rot="R90" cream="yes"/>
+                </package>
+                <package name="MAXIM_DS3231MZ+_1">
+                    <description>PR-RTC-DS3231M-IL8</description>
+                    <wire layer="21" y2="2.5" width="0.15" x2="-0.9" y1="-2.5" x1="-0.9"/>
+                    <wire layer="21" y2="2.5" width="0.15" x2="0.9" y1="-2.5" x1="0.9"/>
+                    <wire layer="21" y2="2.5" width="0.15" x2="0.9" y1="2.5" x1="-0.9"/>
+                    <wire layer="21" y2="-2.5" width="0.15" x2="0.9" y1="-2.5" x1="-0.9"/>
+                    <wire layer="51" y2="2.5" width="0.1" x2="-2.0" y1="-2.5" x1="-2.0"/>
+                    <wire layer="51" y2="2.5" width="0.1" x2="2.0" y1="-2.5" x1="2.0"/>
+                    <wire layer="51" y2="2.5" width="0.1" x2="2.0" y1="2.5" x1="-2.0"/>
+                    <wire layer="51" y2="-2.5" width="0.1" x2="2.0" y1="-2.5" x1="-2.0"/>
+                    <wire layer="41" y2="2.75" width="0.1" x2="-3.75" y1="-2.75" x1="-3.75"/>
+                    <wire layer="41" y2="2.75" width="0.1" x2="3.75" y1="2.75" x1="-3.75"/>
+                    <wire layer="41" y2="-2.75" width="0.1" x2="3.75" y1="2.75" x1="3.75"/>
+                    <wire layer="41" y2="-2.75" width="0.1" x2="-3.75" y1="-2.75" x1="3.75"/>
+                    <text layer="25" align="bottom-left" y="2.88" x="-4.75" rot="R0" size="1.0">&gt;NAME</text>
+                    <circle y="2.755" x="-2.4" layer="21" radius="0.125" width="0.25"/>
+                    <circle y="1.7" x="-0.1" layer="21" radius="0.2" width="0.4"/>
+                    <circle y="1.6" x="-1.1" layer="51" radius="0.5" width="0.1"/>
+                    <smd layer="1" thermals="yes" name="1" stop="yes" roundness="100" dx="0.6" dy="2.2" y="1.905" x="-2.4" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="2" stop="yes" roundness="100" dx="0.6" dy="2.2" y="0.635" x="-2.4" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="3" stop="yes" roundness="100" dx="0.6" dy="2.2" y="-0.635" x="-2.4" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="4" stop="yes" roundness="100" dx="0.6" dy="2.2" y="-1.905" x="-2.4" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="8" stop="yes" roundness="100" dx="0.6" dy="2.2" y="1.905" x="2.4" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="7" stop="yes" roundness="100" dx="0.6" dy="2.2" y="0.635" x="2.4" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="6" stop="yes" roundness="100" dx="0.6" dy="2.2" y="-0.635" x="2.4" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="5" stop="yes" roundness="100" dx="0.6" dy="2.2" y="-1.905" x="2.4" rot="R90" cream="yes"/>
+                </package>
+                <package name="MAXIM_DS3231MZ+_2">
+                    <description>PR-RTC-DS3231M-IL8</description>
+                    <wire layer="21" y2="-2.5" width="0.15" x2="0.8" y1="-2.5" x1="-0.8"/>
+                    <wire layer="21" y2="2.5" width="0.15" x2="0.8" y1="2.5" x1="-0.8"/>
+                    <wire layer="21" y2="2.5" width="0.15" x2="0.8" y1="-2.5" x1="0.8"/>
+                    <wire layer="21" y2="2.5" width="0.15" x2="-0.8" y1="-2.5" x1="-0.8"/>
+                    <wire layer="51" y2="-2.5" width="0.1" x2="2.0" y1="-2.5" x1="-2.0"/>
+                    <wire layer="51" y2="2.5" width="0.1" x2="2.0" y1="2.5" x1="-2.0"/>
+                    <wire layer="51" y2="2.5" width="0.1" x2="2.0" y1="-2.5" x1="2.0"/>
+                    <wire layer="51" y2="2.5" width="0.1" x2="-2.0" y1="-2.5" x1="-2.0"/>
+                    <wire layer="41" y2="3.0" width="0.1" x2="-4.2" y1="-3.0" x1="-4.2"/>
+                    <wire layer="41" y2="3.0" width="0.1" x2="4.2" y1="3.0" x1="-4.2"/>
+                    <wire layer="41" y2="-3.0" width="0.1" x2="4.2" y1="3.0" x1="4.2"/>
+                    <wire layer="41" y2="-3.0" width="0.1" x2="-4.2" y1="-3.0" x1="4.2"/>
+                    <text layer="25" align="bottom-left" y="3.0" x="-5.2" rot="R0" size="1.0">&gt;NAME</text>
+                    <circle y="2.805" x="-2.45" layer="21" radius="0.125" width="0.25"/>
+                    <circle y="1.6" x="-1.1" layer="51" radius="0.5" width="0.1"/>
+                    <smd layer="1" thermals="yes" name="5" stop="yes" roundness="100" dx="0.7" dy="2.5" y="-1.905" x="2.45" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="6" stop="yes" roundness="100" dx="0.7" dy="2.5" y="-0.635" x="2.45" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="7" stop="yes" roundness="100" dx="0.7" dy="2.5" y="0.635" x="2.45" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="8" stop="yes" roundness="100" dx="0.7" dy="2.5" y="1.905" x="2.45" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="4" stop="yes" roundness="100" dx="0.7" dy="2.5" y="-1.905" x="-2.45" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="3" stop="yes" roundness="100" dx="0.7" dy="2.5" y="-0.635" x="-2.45" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="2" stop="yes" roundness="100" dx="0.7" dy="2.5" y="0.635" x="-2.45" rot="R90" cream="yes"/>
+                    <smd layer="1" thermals="yes" name="1" stop="yes" roundness="100" dx="0.7" dy="2.5" y="1.905" x="-2.45" rot="R90" cream="yes"/>
+                </package>
+            </packages>
+            <symbols>
+                <symbol name="MAXIM_DS3231MZ+_0_0">
+                    <description>PR-RTC-DS3231M-IL8</description>
+                    <wire layer="94" y2="-5.08" width="0.508" x2="0.0" y1="-27.94" x1="0.0"/>
+                    <wire layer="94" y2="-5.08" width="0.508" x2="20.32" y1="-5.08" x1="0.0"/>
+                    <wire layer="94" y2="-27.94" width="0.508" x2="20.32" y1="-5.08" x1="20.32"/>
+                    <wire layer="94" y2="-27.94" width="0.508" x2="0.0" y1="-27.94" x1="20.32"/>
+                    <wire layer="94" y2="-7.62" width="0.15" x2="20.32" y1="-7.62" x1="20.32"/>
+                    <wire layer="94" y2="-25.4" width="0.15" x2="0.0" y1="-25.4" x1="0.0"/>
+                    <wire layer="94" y2="-12.7" width="0.15" x2="20.32" y1="-12.7" x1="20.32"/>
+                    <wire layer="94" y2="-15.24" width="0.15" x2="0.0" y1="-15.24" x1="0.0"/>
+                    <wire layer="94" y2="-25.4" width="0.15" x2="20.32" y1="-25.4" x1="20.32"/>
+                    <wire layer="94" y2="-20.32" width="0.15" x2="0.0" y1="-20.32" x1="0.0"/>
+                    <wire layer="94" y2="-10.16" width="0.15" x2="0.0" y1="-10.16" x1="0.0"/>
+                    <wire layer="94" y2="-7.62" width="0.15" x2="0.0" y1="-7.62" x1="0.0"/>
+                    <text layer="95" align="top-left" y="-2.54" x="0.0" rot="R0" size="2.54">&gt;NAME</text>
+                    <text layer="95" align="top-left" y="-33.02" x="0.0" rot="R0" size="2.54">DS3231MZ+</text>
+                    <pin direction="oc" name="32KHZ" visible="both" length="middle" y="-7.62" x="25.4" rot="R180"/>
+                    <pin direction="pwr" name="VCC" visible="both" length="middle" y="-25.4" x="-5.08"/>
+                    <pin direction="io" name="!INT!/SQW" visible="both" length="middle" y="-12.7" x="25.4" rot="R180"/>
+                    <pin direction="io" name="!RST!" visible="both" length="middle" y="-15.24" x="-5.08"/>
+                    <pin direction="pwr" name="GND" visible="both" length="middle" y="-25.4" x="25.4" rot="R180"/>
+                    <pin direction="pwr" name="VBAT" visible="both" length="middle" y="-20.32" x="-5.08"/>
+                    <pin direction="io" name="SDA" visible="both" length="middle" y="-10.16" x="-5.08"/>
+                    <pin direction="in" name="SCL" visible="both" length="middle" y="-7.62" x="-5.08"/>
+                </symbol>
+            </symbols>
+            <devicesets>
+                <deviceset prefix="U" name="MAXIM_DS3231MZ+">
+                    <description>PR-RTC-DS3231M-IL8</description>
+                    <gates>
+                        <gate name="G$0" symbol="MAXIM_DS3231MZ+_0_0" x="0"/>
+                    </gates>
+                    <devices>
+                        <device name="MAXIM_DS3231MZ+_0_0" package="MAXIM_DS3231MZ+_0">
+                            <connects>
+                                <connect gate="G$0" pad="1" pin="32KHZ"/>
+                                <connect gate="G$0" pad="2" pin="VCC"/>
+                                <connect gate="G$0" pad="3" pin="!INT!/SQW"/>
+                                <connect gate="G$0" pad="4" pin="!RST!"/>
+                                <connect gate="G$0" pad="5" pin="GND"/>
+                                <connect gate="G$0" pad="6" pin="VBAT"/>
+                                <connect gate="G$0" pad="7" pin="SDA"/>
+                                <connect gate="G$0" pad="8" pin="SCL"/>
+                            </connects>
+                            <technologies>
+                                <technology>
+                                    <attribute name="Code__IPC" value="SOIC127P600-8"/>
+                                    <attribute name="ciiva_ids" value="1021028"/>
+                                    <attribute name="Package_Version" value="revC, 2010"/>
+                                    <attribute name="Component_Link_1_Description" value="Manufacturer URL"/>
+                                    <attribute name="vault_guid" value="819021FA-FBCD-4754-B8D0-574E7A7F9AFC"/>
+                                    <attribute name="MPN" value="DS3231MZ+"/>
+                                    <attribute name="Component_Link_1_URL" value="http://www.maxim-ic.com"/>
+                                    <attribute name="imported" value="yes"/>
+                                    <attribute name="prefix" value="U"/>
+                                    <attribute name="import_ts" value="1521842515"/>
+                                    <attribute name="Datasheet_Version" value="Rev 3, Dec-2011"/>
+                                    <attribute name="Code__JEDEC" value="MS-012-AA"/>
+                                    <attribute name="release_date" value="1338614628"/>
+                                    <attribute name="datasheet" value="http://datasheets.maxim-ic.com/en/ds/DS3231M.pdf"/>
+                                    <attribute name="vault_revision" value="FF7B981F-4F01-433D-AFC1-B36357757B07"/>
+                                    <attribute name="footprint_variant_name_0" value="Level C"/>
+                                    <attribute name="Package_Description" value="8-Pin Small-Outline IC, Narrow (0.15in), 1.27 mm Pitch, SOIC (N), Pb-Free"/>
+                                    <attribute name="footprint_variant_name_2" value="Level A"/>
+                                    <attribute name="imported_from" value="vault"/>
+                                    <attribute name="Component_Link_3_Description" value="Package Specification"/>
+                                    <attribute name="footprint_variant_name_1" value="Level B"/>
+                                    <attribute name="MF" value="Maxim"/>
+                                    <attribute name="package" value="S8MK+1"/>
+                                    <attribute name="Component_Link_3_URL" value="http://pdfserv.maxim-ic.com/package_dwgs/21-0041.PDF"/>
+                                </technology>
+                            </technologies>
+                        </device>
+                        <device name="MAXIM_DS3231MZ+_0_1" package="MAXIM_DS3231MZ+_1">
+                            <connects>
+                                <connect gate="G$0" pad="1" pin="32KHZ"/>
+                                <connect gate="G$0" pad="2" pin="VCC"/>
+                                <connect gate="G$0" pad="3" pin="!INT!/SQW"/>
+                                <connect gate="G$0" pad="4" pin="!RST!"/>
+                                <connect gate="G$0" pad="5" pin="GND"/>
+                                <connect gate="G$0" pad="6" pin="VBAT"/>
+                                <connect gate="G$0" pad="7" pin="SDA"/>
+                                <connect gate="G$0" pad="8" pin="SCL"/>
+                            </connects>
+                            <technologies>
+                                <technology>
+                                    <attribute name="Code__IPC" value="SOIC127P600-8"/>
+                                    <attribute name="ciiva_ids" value="1021028"/>
+                                    <attribute name="Package_Version" value="revC, 2010"/>
+                                    <attribute name="Component_Link_1_Description" value="Manufacturer URL"/>
+                                    <attribute name="vault_guid" value="819021FA-FBCD-4754-B8D0-574E7A7F9AFC"/>
+                                    <attribute name="MPN" value="DS3231MZ+"/>
+                                    <attribute name="Component_Link_1_URL" value="http://www.maxim-ic.com"/>
+                                    <attribute name="imported" value="yes"/>
+                                    <attribute name="prefix" value="U"/>
+                                    <attribute name="import_ts" value="1521842515"/>
+                                    <attribute name="Datasheet_Version" value="Rev 3, Dec-2011"/>
+                                    <attribute name="Code__JEDEC" value="MS-012-AA"/>
+                                    <attribute name="release_date" value="1338614628"/>
+                                    <attribute name="datasheet" value="http://datasheets.maxim-ic.com/en/ds/DS3231M.pdf"/>
+                                    <attribute name="vault_revision" value="FF7B981F-4F01-433D-AFC1-B36357757B07"/>
+                                    <attribute name="footprint_variant_name_0" value="Level C"/>
+                                    <attribute name="Package_Description" value="8-Pin Small-Outline IC, Narrow (0.15in), 1.27 mm Pitch, SOIC (N), Pb-Free"/>
+                                    <attribute name="footprint_variant_name_2" value="Level A"/>
+                                    <attribute name="imported_from" value="vault"/>
+                                    <attribute name="Component_Link_3_Description" value="Package Specification"/>
+                                    <attribute name="footprint_variant_name_1" value="Level B"/>
+                                    <attribute name="MF" value="Maxim"/>
+                                    <attribute name="package" value="S8MK+1"/>
+                                    <attribute name="Component_Link_3_URL" value="http://pdfserv.maxim-ic.com/package_dwgs/21-0041.PDF"/>
+                                </technology>
+                            </technologies>
+                        </device>
+                        <device name="MAXIM_DS3231MZ+_0_2" package="MAXIM_DS3231MZ+_2">
+                            <connects>
+                                <connect gate="G$0" pad="1" pin="32KHZ"/>
+                                <connect gate="G$0" pad="2" pin="VCC"/>
+                                <connect gate="G$0" pad="3" pin="!INT!/SQW"/>
+                                <connect gate="G$0" pad="4" pin="!RST!"/>
+                                <connect gate="G$0" pad="5" pin="GND"/>
+                                <connect gate="G$0" pad="6" pin="VBAT"/>
+                                <connect gate="G$0" pad="7" pin="SDA"/>
+                                <connect gate="G$0" pad="8" pin="SCL"/>
+                            </connects>
+                            <technologies>
+                                <technology>
+                                    <attribute name="Code__IPC" value="SOIC127P600-8"/>
+                                    <attribute name="ciiva_ids" value="1021028"/>
+                                    <attribute name="Package_Version" value="revC, 2010"/>
+                                    <attribute name="Component_Link_1_Description" value="Manufacturer URL"/>
+                                    <attribute name="vault_guid" value="819021FA-FBCD-4754-B8D0-574E7A7F9AFC"/>
+                                    <attribute name="MPN" value="DS3231MZ+"/>
+                                    <attribute name="Component_Link_1_URL" value="http://www.maxim-ic.com"/>
+                                    <attribute name="imported" value="yes"/>
+                                    <attribute name="prefix" value="U"/>
+                                    <attribute name="import_ts" value="1521842515"/>
+                                    <attribute name="Datasheet_Version" value="Rev 3, Dec-2011"/>
+                                    <attribute name="Code__JEDEC" value="MS-012-AA"/>
+                                    <attribute name="release_date" value="1338614628"/>
+                                    <attribute name="datasheet" value="http://datasheets.maxim-ic.com/en/ds/DS3231M.pdf"/>
+                                    <attribute name="vault_revision" value="FF7B981F-4F01-433D-AFC1-B36357757B07"/>
+                                    <attribute name="footprint_variant_name_0" value="Level C"/>
+                                    <attribute name="Package_Description" value="8-Pin Small-Outline IC, Narrow (0.15in), 1.27 mm Pitch, SOIC (N), Pb-Free"/>
+                                    <attribute name="footprint_variant_name_2" value="Level A"/>
+                                    <attribute name="imported_from" value="vault"/>
+                                    <attribute name="Component_Link_3_Description" value="Package Specification"/>
+                                    <attribute name="footprint_variant_name_1" value="Level B"/>
+                                    <attribute name="MF" value="Maxim"/>
+                                    <attribute name="package" value="S8MK+1"/>
+                                    <attribute name="Component_Link_3_URL" value="http://pdfserv.maxim-ic.com/package_dwgs/21-0041.PDF"/>
+                                </technology>
+                            </technologies>
+                        </device>
+                    </devices>
+                </deviceset>
+            </devicesets>
+        </library>
+    </drawing>
+</eagle>

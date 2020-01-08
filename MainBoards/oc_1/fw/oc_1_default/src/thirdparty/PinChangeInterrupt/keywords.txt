@@ -1,0 +1,32 @@
+#######################################
+# Syntax Coloring Map For PinChangeInterrupt
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+attachPinChangeInterrupt	KEYWORD2
+detachPinChangeInterrupt	KEYWORD2
+attachPCINT	KEYWORD2
+detachPCINT	KEYWORD2
+PinChangeInterruptEvent	KEYWORD2
+PCINTEvent	KEYWORD2
+enablePCINT	KEYWORD2
+enablePinChangeInterrupt	KEYWORD2
+disablePCINT	KEYWORD2
+disablePinChangeInterrupt	KEYWORD2
+getPCINTTrigger	KEYWORD2
+getPinChangeInterruptTrigger	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################

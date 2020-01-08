@@ -1,0 +1,73 @@
+########################################################
+# Syntax Coloring Map for SparkFun RV-1805 Library #
+########################################################
+# Class
+###################################################################
+
+RV1805	KEYWORD1
+
+###################################################################
+# Methods and Functions
+###################################################################
+
+begin	KEYWORD2
+setTime	KEYWORD2
+setHundredths	KEYWORD2
+setSeconds	KEYWORD2
+setMinutes	KEYWORD2
+setHours	KEYWORD2
+setWeekday	KEYWORD2
+setDate	KEYWORD2
+setMonth	KEYWORD2
+setYear	KEYWORD2
+
+getHundredths	KEYWORD2
+getSeconds	KEYWORD2
+getMinutes	KEYWORD2
+getHours	KEYWORD2
+getWeekday	KEYWORD2
+getDate	KEYWORD2
+getMonth	KEYWORD2
+getYear	KEYWORD2
+
+updateTime	KEYWORD2
+stringDateUSA	KEYWORD2
+stringDate	KEYWORD2
+stringTime	KEYWORD2
+stringTimeStamp	KEYWORD2
+
+setToCompilerTime	KEYWORD2
+is12Hour	KEYWORD2
+isPM	KEYWORD2
+set12Hour	KEYWORD2
+set24Hour	KEYWORD2
+
+status	KEYWORD2
+
+setAlarm	KEYWORD2
+setAlarmMode	KEYWORD2
+enableTrickleCharger	KEYWORD2
+disableTrickleCharger	KEYWORD2
+enableLowPower	KEYWORD2
+enableInterrupt	KEYWORD2
+disableInterrupt	KEYWORD2
+enableBatteryInterrupt	KEYWORD2
+enableAlarmInterrupt	KEYWORD2
+
+setEdgeTrigger	KEYWORD2
+clearInterrupts	KEYWORD2
+checkBattery	KEYWORD2
+setReferenceVoltage	KEYWORD2
+
+BCDtoDEC	KEYWORD2
+DECtoBCD	KEYWORD2
+
+readRegister	KEYWORD2
+writeRegister	KEYWORD2
+readMultipleRegisters	KEYWORD2
+writeMultipleRegisters	KEYWORD2
+
+###################################################################
+# Constants
+###################################################################
+

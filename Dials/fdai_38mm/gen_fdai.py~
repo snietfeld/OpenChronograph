@@ -1,0 +1,165 @@
+'''
+
+Slava
+  Dial OD: 58.5
+  Visible: 57.5mm
+  Graphic OD: 54mm
+'''
+
+
+import svgwrite
+from svgwrite import cm, mm
+from math import pi, sin, cos
+
+
+
+def fdai(fname, od=36.7, lw_minor=0.1524, lw_major=0.25,
+         upper_color='black', lower_color='white',
+         size=('40mm', '40mm'), viewBox=('-20 -20 40 40')):
+    
+    dwg = svgwrite.Drawing(filename=fname, size=size, viewBox=viewBox, debug=True)
+    
+
+    # Outer ticks (minor ever degree, med every 5deg, major every 10deg)
+    outer_ticks = dwg.add(dwg.g(id='outer_ticks', stroke=upper_color, stroke_width=lw_minor))
+
+    # Thick radials (every 30deg)
+    radials = dwg.add(dwg.g(id='radials', stroke=upper_color, stroke_width=lw_major))        
+
+
+    
+    # Radials and tangentials
+    #----------------------------------------
+    for i in range(0,360):
+        theta = i * pi/180
+
+        if i <= 180: color = upper_color
+        else: color = lower_color
+
+
+        # Outer ticks
+        # Set tick size depending on minor, med, major
+        if i % 10 == 0:
+            tick_len = od/5/10
+        elif i % 5 == 0:
+            tick_len = od/7.5/10
+        else:
+            tick_len = od/10.0/10
+
+        # Calculate tick points & draw
+        points = line_radial(-tick_len, theta, od/2)
+        outer_ticks.add(dwg.line(start=points[0], end=points[1], stroke_width=lw_minor, stroke=color))
+
+
+        # Major radials
+        if i % 30 == 0:
+            tick_len = od/18
+            points = line_radial(-tick_len, theta, od/2)
+            outer_ticks.add(dwg.line(start=points[0], end=points[1], stroke_width=lw_major, stroke=color))
+
+            tick_len = od/9
+            points = line_radial(-tick_len, theta, od/2*0.775)
+            outer_ticks.add(dwg.line(start=points[0], end=points[1], stroke_width=lw_major, stroke=color))
+
+            tick_len = od/5
+            points = line_radial(-tick_len, theta, od/2*0.45)
+            outer_ticks.add(dwg.line(start=points[0], end=points[1], stroke_width=lw_major, stroke=color))
+
+
+        # Outer minor radial ticks every 5deg
+        if i % 30 in (5,10,15,20,25):                
+            tick_len = od/60
+            r = (5/6.)*od/2 - tick_len/2
+            points = line_radial(tick_len, theta, r)
+            outer_ticks.add(dwg.line(start=points[0], end=points[1], stroke_width=lw_minor, stroke=color))
+            
+            tick_len = od/60
+            r = (3/6.)*od/2 - tick_len/2
+            points = line_radial(tick_len, theta, r)
+            outer_ticks.add(dwg.line(start=points[0], end=points[1], stroke_width=lw_minor, stroke=color))
+
+            
+        # Inner minor radial ticks every 10deg
+        if i % 30 in (10,20):
+            tick_len = od/60
+            r = (3/18.)*od/2
+            points = line_radial(tick_len, theta, r)
+            outer_ticks.add(dwg.line(start=points[0], end=points[1], stroke_width=lw_minor, stroke=color))
+
+
+        # Tangential ticks every 5deg on odd 30deg radials
+        if i % 30 == 15:
+            for j in (20,25,35,40,45,50,55,65,70,75,80,85):
+                r = (j/90.)*od/2
+                tick_len = od/60
+
+                points = line_tangential(tick_len, theta, r)
+                outer_ticks.add(dwg.line(start=points[0], end=points[1], stroke_width=lw_minor, stroke=color))
+            
+
+    # Circular arcs
+    #----------------------------------------
+    # Minor (thin) arcs (outside only right now)
+    for r in (od/2,):
+        # Top arcs
+        points = arc(0,0, r, pi, pi*2, 50)
+        outer_ticks.add(dwg.polyline(points, stroke_width=lw_minor, fill='none', stroke=upper_color)) 
+
+        # Bottom arcs
+        points = arc(0,0,r,0,pi,50)
+        outer_ticks.add(dwg.polyline(points, stroke_width=lw_minor, fill='none', stroke=lower_color))
+        
+
+    # Major (thick) arcs
+    for r in (od/2*(2/3.), od/2*(1/3.), od/2*(1/18.), od/2*(2/18.), od/2*(3/18.)):
+        # Top arcs
+        points = arc(0,0, r, pi, pi*2, 30)
+        outer_ticks.add(dwg.polyline(points, stroke_width=lw_major, fill='none', stroke=upper_color)) 
+
+        # Bottom arcs
+        points = arc(0,0,r,0,pi,30)
+        outer_ticks.add(dwg.polyline(points, stroke_width=lw_major, fill='none', stroke=lower_color)) 
+    
+
+    dwg.save()
+    
+
+def line_radial(length, angle, r):
+    angle *= -1
+    p1 = rotate((r,0), angle)
+    p2 = rotate((r+length,0), angle)
+    return (p1,p2)
+
+def line_tangential(length, angle, r):
+    angle *= -1
+    p1 = rotate((r,length/2.), angle)
+    p2 = rotate((r,-length/2.), angle)
+    return (p1,p2)
+                             
+
+def arc(cx, cy, r, theta_start, theta_end, n_segs):
+    arclen = theta_end - theta_start
+
+    points = []
+    for i in range(n_segs+1):
+        theta_0 = theta_start + arclen/n_segs*i
+        p = rotate((cx+r,0), theta_0)
+        points.append(p)
+
+    return points
+
+        
+    
+
+def rotate(p, theta):
+    return (cos(theta)*p[0]-sin(theta)*p[1], sin(theta)*p[0]+cos(theta)*p[1])
+
+if __name__ == '__main__':
+    #basic_shapes('basic_shapes.svg')
+    #fdai('fdai.svg')
+
+    fdai('fdai_copper.svg', od=36.7, lw_minor=0.1524, lw_major=0.25,
+         upper_color='black', lower_color='black')
+
+    fdai('fdai_soldermask.svg', od=36.7, lw_minor=0.1524*2, lw_major=0.25*2,
+         upper_color='black', lower_color='black')

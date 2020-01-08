@@ -1,0 +1,365 @@
+#usage  "en: <b>Layout items in a circle</b>\n"
+		"<p>You can run this ULP either in a library part to layout pins/pads, "
+		"or run it on a board to layout components in a circle. "
+		"<p>This ULP is licensed under the <i>GNU General Public License version 2 (GPLv2)</i>. "
+		"Please see the accompanying README for more details. "
+		"<p>"
+		"<author>Author: Darell Tan</author>"
+
+int num_items;
+string item_name[], item_type[];
+int item_x[], item_y[];
+int unit_type;
+
+numeric string ui_items[];
+
+// converts internal Eagle units to whatever the current grid unit is
+// uses the type stored in @unit_type
+real u2curr(int u) {
+	switch (unit_type) {
+		case GRID_UNIT_MIC:		return u2mic(u);
+		case GRID_UNIT_MM:		return u2mm(u);
+		case GRID_UNIT_MIL:		return u2mil(u);
+		case GRID_UNIT_INCH:	return u2inch(u);
+	}
+	return 0;
+}
+
+real deg2rad(real deg) { return deg * PI / 180; }
+real rad2deg(real rad) { return rad * 180 / PI; }
+
+int find_digit(string s) {
+	for (int i = 0; s[i]; i++) {
+		if (isdigit(s[i]))
+			return i;
+	}
+	return -1;
+}
+
+int filter_part(string part_name, string prefix, int start_num, int stop_num) {
+	if (strstr(part_name, prefix) != 0)
+		return 0;
+
+	int pos;
+	int part_num;
+	pos = find_digit(part_name);
+	if (pos >= 0) {
+		// further filter prefix (to weed for e.g. "CN" from "C")
+		if (prefix && prefix != strsub(part_name, 0, pos))
+			return 0;
+
+		// should we filter by numeric range?
+		if (start_num == -1 && stop_num == -1)
+			return 1;
+
+		part_num = strtol( strsub(part_name, pos) );
+		return part_num >= start_num && part_num <= stop_num;
+	}
+
+	return 1;
+}
+
+void get_parts(string prefix, int start_num, int stop_num) {
+	// check for invalid filter
+	if (stop_num < start_num) {
+		dlgMessageBox("<b>ERROR</b>: filter end range must be greater than start");
+		return;
+	}
+
+	num_items = 0;
+
+	if (package) {
+		library(L) {
+			unit_type = L.grid.unit;
+		}
+
+		package(P) {
+			P.contacts(C) {
+				if (! filter_part(C.name, prefix, start_num, stop_num))
+					continue;
+				item_name[num_items] = C.name;
+				item_type[num_items] = C.pad ? "Pin" : "Pad";
+				item_x[num_items] = C.x;
+				item_y[num_items] = C.y;
+				num_items++;
+			}
+		}
+	} else if (board) {
+		board(B) {
+			unit_type = B.grid.unit;
+			B.elements(E) {
+				//if (E.populate) {
+					if (! filter_part(E.name, prefix, start_num, stop_num))
+						continue;
+					item_name[num_items] = E.name;
+					item_type[num_items] = E.package.name;
+					item_x[num_items] = E.x;
+					item_y[num_items] = E.y;
+					num_items++;
+				//}
+			}
+		}
+	} else {
+		dlgMessageBox("<b>ERROR</b>: run this ULP in a <i>board</i> or <i>library</i>.");
+		exit(-1);
+	}
+
+	// fill ui_items
+	string line;
+	for (int i = 0; i < num_items; i++) {
+		sprintf(line, "%s\t%s", item_name[i], item_type[i]);
+		ui_items[i] = line;
+	}
+	ui_items[num_items] = "";
+}
+
+void get_all_parts() {
+	get_parts("", -1, -1);
+}
+
+real euclid_dist(real x, real y, real x2, real y2) {
+	// C^2 = A^2 + B^2
+	return sqrt( pow(x - x2, 2) + pow(y - y2, 2) );
+}
+
+///////////////////////////////////////////////////////////////////////
+
+/*
+ * accesses:
+ *   - num_items
+ *   - item_name[]
+ *   - item_x[]
+ *   - item_y[]
+ * 
+ * direction: +1=CW, -1=CCW
+ */
+void do_layout(real centre_x, real centre_y, real radius, int direction, int start_from_top, real rotate) {
+	int i, j;
+
+	// angle per "slice"
+	real angle = 2 * PI / num_items;
+
+	if (radius <= 0) {
+		dlgMessageBox("<b>ERROR:</b> specify the circle <i>radius</i>, or use the <i>Compute</i> button.\n");
+		return;
+	}
+
+	// check if rotation is enabled
+	if (rotate < 0)
+		rotate = -1;
+
+	// compute all new coords
+	real new_x[], new_y[], rotation[];
+	real curr_rotation = deg2rad(rotate >= 0 ? rotate : 0);
+	for (i = 0; i < num_items; i++) {
+		new_x[i] = radius * sin(i * angle) + centre_x;
+		new_y[i] = radius * cos(i * angle) + centre_y;
+		rotation[i] = curr_rotation;
+		curr_rotation += angle;
+	}
+
+	int closest_pos = 0;
+	if (! start_from_top) {
+		// find position closest to current item #0
+		closest_pos = -1;
+		real smallest_dist = 0;
+		for (i = 0; i < num_items; i++) {
+			real dist = euclid_dist(new_x[i], new_y[i], u2curr(item_x[0]), u2curr(item_y[0]));
+			if (i == 0 || dist <= smallest_dist) {
+				smallest_dist = dist;
+				closest_pos = i;
+			}
+		}
+
+		if (closest_pos == -1) {
+			dlgMessageBox("<b>ERROR:</b> unable to find first item\n");
+			exit(-1);
+		}
+	}
+
+	// loop and assign new positions
+	string s;
+	for (i = closest_pos, j = 0; ; ) {
+		string ss;
+		sprintf(ss, "MOVE %s (%f %f); ", item_name[j], new_x[i], new_y[i]);
+		s += ss;
+
+		// perform rotation if necessary
+		if (rotate >= 0) {
+			sprintf(ss, "ROTATE =R%f '%s'; ", 360 - rad2deg(rotation[i]), item_name[j]);
+			s += ss;
+		}
+
+		s += "\n";
+
+		// advance position
+		i += direction;
+		j++;
+
+		// rollover
+		if (i >= num_items)
+			i = 0;
+		else if (i < 0)
+			i = num_items - 1;
+
+		// terminate when it reaches the same pos again
+		if (i == closest_pos)
+			break;
+	}
+
+	if (dlgMessageBox("Perform layout now?", 
+			"+Run", "-Cancel") == 0) {
+		// force the grid to be in inches
+		s = "GRID INCH;\n" + 
+			s + 
+			"GRID LAST;\n";
+
+		//dlgMessageBox(s);
+
+		// save settings
+		if (board) {
+			string _settings;
+			sprintf(_settings, "ATTRIBUTE * CIRCULAR-LAYOUT-SETTINGS '%f %f %f %f %d %d';\n", 
+						centre_x		,
+						centre_y		,
+						radius			,
+						rotate			,
+						direction == +1 ? 0 : 1,
+						start_from_top);
+
+			// prepend this so it doesn't get UNDOne
+			s = _settings + s;
+		}
+
+		exit(s);
+	}
+}
+
+///////////////////////////////////////////////////////////////////////
+
+// must be put outside for checks
+get_all_parts();
+
+
+dlgDialog("Circular Layout Tool") {
+	int _sel = -1;
+	string prefix = "";
+
+	real _centre_x, _centre_y, _rotate_offset;
+	int _part_startnum = -1, _part_stopnum = -1;
+	int _direction = 0;
+	int _rotate = 0;
+	int _start_from_top = 0;
+	real _radius = 0;
+
+	// retrieve settings?
+	if (board) {
+		board(B) {
+			B.attributes(A) {
+				if (A.name == "CIRCULAR-LAYOUT-SETTINGS") {
+					string _settings[];
+					if (strsplit(_settings, A.value, ' ') > 0) {
+						_centre_x		= strtod(_settings[0]);
+						_centre_y		= strtod(_settings[1]);
+						_radius			= strtod(_settings[2]);
+						_rotate			= strtod(_settings[3]);
+						_direction		= strtol(_settings[4]);
+						_start_from_top	= strtol(_settings[5]);
+
+						if (_rotate < 0) {
+							_rotate = 0;
+						} else {
+							_rotate_offset = _rotate;
+							_rotate = 1;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// force minimum width
+	//dlgHBoxLayout dlgSpacing(400);
+
+	dlgVBoxLayout {
+		dlgGroup("Parts Selection:") {
+			dlgLabel(
+				"Enter the prefix of the part, and optionally select the start and stop range.<br>" + 
+				"For example, to layout <code>LED1</code> to <code>LED10</code>, the prefix would be LED<br>" +
+				"and the start and stop range would be 1 and 10, respectively."
+			);
+			dlgSpacing(10);
+
+			dlgHBoxLayout {
+				dlgLabel("Prefix:");
+				dlgStringEdit(prefix);
+
+				dlgLabel("Range:");
+				dlgSpinBox(_part_startnum, -1);
+				dlgLabel(" to ");
+				dlgSpinBox(_part_stopnum, -1);
+
+				dlgPushButton("Filter") get_parts(prefix, _part_startnum, _part_stopnum);
+			}
+
+			dlgHBoxLayout {
+				dlgListView("Part\tType", ui_items, _sel);
+				dlgVBoxLayout dlgSpacing(250);
+			}
+		}
+
+		dlgHBoxLayout {
+			dlgGroup("Layout && Direction:") {
+				dlgVBoxLayout {
+					dlgHBoxLayout {
+						dlgRadioButton("Clockwise", _direction);
+						dlgRadioButton("Counter-clockwise", _direction);
+						dlgStretch(1);
+					}
+
+					dlgCheckBox("Start from top (12 o'clock)", _start_from_top);
+
+					dlgHBoxLayout {
+						dlgCheckBox("Rotate each component, starting at", _rotate);
+						dlgRealEdit(_rotate_offset, 0, 360);
+						dlgLabel("degrees");
+						dlgStretch(1);
+					}
+				}
+			}
+		}
+
+		dlgSpacing(10);
+		dlgHBoxLayout {
+			dlgLabel("Centre X:");
+			dlgRealEdit(_centre_x);
+			dlgLabel("Y:");
+			dlgRealEdit(_centre_y);
+			dlgLabel("(in inches)");
+			dlgStretch(1);
+		}
+
+		dlgHBoxLayout {
+			dlgLabel("Radius (in inches):");
+			dlgRealEdit(_radius, 0);
+			dlgSpacing(10);
+			dlgPushButton("Compute") {
+				_radius = euclid_dist(u2curr(item_x[0]), u2curr(item_y[0]), _centre_x, _centre_y);
+			}
+			dlgStretch(1);
+		}
+
+		dlgSpacing(10);
+
+		dlgHBoxLayout {
+			dlgStretch(1);
+
+			dlgPushButton("+Do Layout") {
+				do_layout(_centre_x, _centre_y, _radius, 
+					_direction == 0 ? +1 : -1, 
+					_start_from_top, 
+					_rotate == 0 ? -1 : _rotate_offset);
+			}
+		}
+	}
+};
