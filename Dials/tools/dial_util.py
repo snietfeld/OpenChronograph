@@ -58,11 +58,11 @@ def draw_dial(dwg, elems,
               text_offset=(0,0)):
 
     # Top arcs
-    points = arc(cx, cy, r, pi, pi*2, 30)
+    points = arc(cx, cy, r, pi, pi*2, 100)
     elems.add(dwg.polyline(points, stroke_width=outline_lw, fill=fill_color, stroke=color)) 
 
     # Bottom arcs
-    points = arc(cx, cy, r, 0, pi, 30)
+    points = arc(cx, cy, r, 0, pi, 100)
     elems.add(dwg.polyline(points, stroke_width=outline_lw, fill=fill_color, stroke=color))
 
     # Draw major ticks
